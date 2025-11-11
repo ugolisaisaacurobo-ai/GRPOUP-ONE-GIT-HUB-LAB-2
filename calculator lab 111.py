@@ -39,7 +39,7 @@ def calculate():
             break
         if op.lower() == 'sqrt':
             if result < 0:
-                print("Error: Cannot take square root of a negative number.")
+                print("Error: Math error.")
                 continue
             result = math.sqrt(result)
             expr = f"√({expr})"
@@ -49,7 +49,7 @@ def calculate():
             next_num = get_number("Enter next number (or ANS): ")
             # Handle division/modulus by zero
             if (op == '/' or op == '%') and next_num == 0:
-                print("Error: Division or modulus by zero is not possible.")
+                print("Error: undefined.")
                 continue
             # Perform operation
             if op == '+':
@@ -80,7 +80,7 @@ def view_history():
         for entry in history:
             print(entry)
     else:
-        print("History is empty.")
+        print("History is empty, feel free to perfom calculation.")
 
 def clear_history():
     """Clear the calculation history."""
