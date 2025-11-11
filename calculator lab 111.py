@@ -4,23 +4,39 @@ history = []
 memory = 0
 last_result = None
 
-def get_number(prompt):
+import math
+
+def get_number(prompt, last_result=None):
     """
-    Prompt the user for a number or 'ANS'. Validate input and return a float.
+    Prompt the user for a number, expression, or 'ANS'. Validate input and return a float.
+    Accepts expressions like '2+3' or 'sqrt(9)'.
     """
-    global last_result
     while True:
         num_str = input(prompt).strip()
+
+        if num_str.upper() in ('Q', 'QUIT', 'EXIT'):
+            print("Exiting calculator.")
+            exit()
+
         if num_str.upper() == 'ANS':
             if last_result is None:
                 print("No previous result to use for ANS.")
                 continue
             return last_result
+
+        if num_str == '':
+            if last_result is not None:
+                print("Using last result (ANS).")
+                return last_result
+            else:
+                return 0.0
+
         try:
-            value = float(num_str)
-            return value
-        except ValueError:
-            print("Invalid input. Please enter a number or 'ANS'.")
+            # Evaluate math expressions safely
+            value = eval(num_str, {"__builtins__": None}, math.__dict__)
+            return float(value)
+        except Exception:
+            print("Invalid input. Please enter a number, expression, or 'ANS'.")
 
 def calculate():
     """
